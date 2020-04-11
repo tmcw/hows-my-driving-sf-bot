@@ -1,0 +1,8 @@
+Keras==2.3.1
+tensorflow==2.1.0
+opencv-python==4.2.0.34
+imutils==0.5.3
+sklearn==0.0
+requests==2.23.0
+requests-html==0.10.0
+lxml==4.5.0

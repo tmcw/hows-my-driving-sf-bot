@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://www.sfmta.com/getting-around/parking/meters -->
+<html lang="en"
+	class=" js js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths">
+<!--<![endif]-->
+<!-- the "no-js" class is for Modernizr. -->
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="dcterms.publisher"
+	content="San Francisco Municipal Transportation Agency">
+<meta name="dcterms.creator"
+	content="San Francisco Municipal Transportation Agency">
+
+<meta name="dcterms.type" content="Text">
+<meta name="dcterms.format" content="text/html">
+<link rel="shortcut icon" href="/pbw/include/sanfrancisco/images/favicon.ico" type="image/vnd.microsoft.icon">
+
+<meta property="og:site_name" content="SFMTA">
+<meta property="og:description" content="Contest Your Parking Citation Online">
+<meta name="dcterms.language" content="und">
+<meta name="copyright" 	content="Copyright &amp;copr; 2014 San Francisco Municipal Transportation Agency. All rights reserved.">
+<meta name="description" content="Contest Your Parking Citation Online">
+<meta name="robots" content="noarchive">
+
+
+<meta name="dcterms.date" content="2013-01-29T11:13-08:00">
+<meta name="dcterms.title"
+	content="Citation Payment">
+<meta property="og:title" content="Contest Your Parking Citation Online">
+<title>Citation Payment | SFMTA</title>
+<link type="text/css" rel="stylesheet" href="/pbw/include/sanfrancisco/css/style2.css" media="all">
+<link type="text/css" rel="stylesheet" href="/pbw/include/sanfrancisco/css/css_ogjvJnfni1_P_WxvXAHlUOgCs860b3ip9DNMapcIGeM.css"
+	media="all">
+<link type="text/css" rel="stylesheet" href="/pbw/include/sanfrancisco/css/css_XUyP_XIaYEj19Ooz6KI7_4GhOJerFFuLdKfQjMe6Jvw.css"
+	media="all">
+<link type="text/css" rel="stylesheet" href="/pbw/include/sanfrancisco/css/css_nGUG-exopw_JETjOGYfzO-sgCHlXIm8v5N2kKSuQ0HM.css"
+	media="all">
+<link type="text/css" rel="stylesheet" href="/pbw/include/sanfrancisco/css/css_86MajzBj9EECGBgd-yFT4tmB2ZEWZ5jNDJXgn-0ssSM.css"
+	media="all">
+
+<link rel="stylesheet" href="/pbw/include/shared/css/jquery-ui.css">
+<script src="/pbw/include/shared/js/jquery-1.10.2.js"></script>
+<script src="/pbw/include/shared/js/jquery-ui.js"></script>
+
+<link href="/pbw/include/shared/css/jquery-confirm.css" rel="stylesheet">
+<script src="/pbw/include/shared/js/jquery-confirm.js"></script>
+
+<!--
+
+  <![endif]-->
+<script language="JavaScript" src="/pbw/include/shared/js/common.js"></script>
+
+
+
+
+
+<script>
+
+	function payNow(){
+
+		var isContested = false;
+
+		if(isContested == true){
+		$.confirm({
+			    boxWidth: '30%',
+				useBootstrap: false,
+			    title: 'Confirm',
+			    content: 'This citation is currently awaiting a protest decision.  Do you still wish to pay this citation?',
+			    buttons: {
+			    	Continue: {
+			    		action: function () {
+					 		document.selectForm.submit();
+							return true;
+			        	}
+			    	},
+			    	Cancel: function () {
+
+			        }
+			    }
+			});
+		} else {
+			document.selectForm.submit();
+			return true;
+		}
+
+
+    }
+
+</script>
+<style type="text/css">
+
+.btn{
+	border: 1px solid #333333;
+	border-color: #333333;
+	-webkit-appearance: button;
+	line-height: 20px;
+	height: 30px;
+	backround-color:  #e8e8e8;
+	box-shadow: none;
+}
+
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button {
+  line-height: 20px;
+  text-transform: none;
+  font-size: 14px;
+  font-weight: normal;
+  text-shadow: none;
+  border-radius: 0px;
+  border-color: #333333;
+  border: 1px solid #333333;
+  background-color:  #e8e8e8;
+  width: auto;
+  margin-right: 10px;
+  padding-top:3px;
+  padding-bottom: 3px;
+}
+.jconfirm.jconfirm-light .jconfirm-box .jconfirm-buttons button.btn-default:hover {
+  background-color: #e8e8e8;
+}
+
+
+/*
+		Generic Styling
+		*/
+.ticket Table {
+	width: 100%;
+	border-collapse: collapse;
+}
+/* Zebra striping */
+.ticket tr:nth-of-type(odd) {
+	background: #eee;
+}
+
+.ticket th {
+	background: #cccccc;
+	color: #4f5349;
+	font-weight: bold;
+}
+
+.ticket  td,th {
+	padding: .35em;
+	border: 1px solid #cccccc;
+	text-align: left;
+}
+
+.contest {
+	width: 28em;
+}
+
+.contest Table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+	vertical-align: top;
+}
+/* Zebra striping */
+.contest tr:nth-of-type(odd) {
+	background: #eee;
+}
+
+.contest th {
+	background: #cccccc;
+	border: 1px solid #cccccc;
+	color: #4f5349;
+	font-weight: bold;
+}
+
+.contest  td,th {
+	padding: .35em;
+	border: 1px solid #cccccc;
+	text-align: left;
+}
+
+.fee {
+	width: 28em;
+	float: right;
+}
+
+.fee Table {
+	width: 100%;
+	border: 1px solid #cccccc;
+	border-collapse: collapse;
+	vertical-align: top;
+	float: right;
+	text-align: justify;
+}
+/* Zebra striping */
+.fee tr {
+	background: #fffff;
+}
+
+.fee th {
+	background: #cccccc;
+	border: 1px solid #cccccc;
+	color: #4f5349;
+	font-weight: bold;
+
+}
+
+.fee  th {
+	padding: .35em;
+	text-align: left;
+}
+
+.fee  td {
+	padding: .35em;
+	border-right: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	text-align: left;
+}
+
+#totalDue {
+	border-top: 1px solid #cccccc;
+}
+
+#amount {
+	text-align: right;
+}
+
+#totalDueAmount {
+	border-top: 1px solid #cccccc;
+	text-align: right;
+}
+
+</style>
+
+</head>
+<body>
+
+
+<!--
+<script type="text/javascript" async="" src="/pbw/include/sanfrancisco/css/ga.js"></script><script src="/pbw/include/sanfrancisco/css/jquery.min.js"></script>
+<script>window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.7/jquery.min.js'>\x3C/script>")</script>
+<script src="/pbw/include/sanfrancisco/css/js_IkgOrrVZK1UTp2HktvFi5vo1g7b25Muyr5GoySikuic.js"></script>
+<script src="/pbw/include/sanfrancisco/css/js_7_Mytnu6vpUU_luVEcn6zzSQkIfu4Hp0QXS-LhMHVTo.js"></script>
+<script src="/pbw/include/sanfrancisco/css/js_zKC6wsxqjoRmTKNdDVcmdLOnhkAoI9AtNnnpDlsd9MQ.js"></script>
+<script src="/pbw/include/sanfrancisco/css/js_aOD1wSlIo3qfqOGtk4ccMro42fMZzeFAXgLOjaAbH70.js"></script>
+<script>
+    jQuery(document).ready(function($){
+      $('#om-maximenu-main-mega-menu li.om-leaf .om-maximenu-content').removeClass('om-maximenu-content-nofade');
+      //$('#om-maximenu-main-mega-menu li.om-leaf').hover(omFadeIn,omFadeOut); //native jquery
+      $('#om-maximenu-main-mega-menu li.om-leaf').hoverIntent({
+        over: omFadeIn,
+        timeout: 300,
+        out: omFadeOut
+      });
+      function omFadeIn(){ $('.om-maximenu-content.closed', this).fadeIn(); }
+      function omFadeOut(){ $('.om-maximenu-content.closed', this).fadeOut(); }
+    });
+    </script>
+<script src="/pbw/include/sanfrancisco/css/js_lgAAOlplEun7p_8Pb-8dM079wtvnfwLZ0hAK0mH7Dto.js"></script>
+<script>var _gaq = _gaq || [];_gaq.push(["_setAccount", "UA-18704695-1"]);_gaq.push(["_gat._anonymizeIp"]);_gaq.push(["_trackPageview"]);(function() {var ga = document.createElement("script");ga.type = "text/javascript";ga.async = true;ga.src = "http://www.sfmta.com/sites/default/files/googleanalytics/ga.js?n6dhso";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga, s);})();</script>
+<script src="/pbw/include/sanfrancisco/css/js_7R8LxvUH_iexSQh3GZb6x2bX92Npzqvc-YO3BOsypM0.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"sfmta","theme_token":"l-Nx7qM5zevaP8muRlaJGXsUps8SCEVTFWIo7xxkTLs","js":{"https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/1.7.1\/jquery.min.js":1,"0":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/themes\/bootstrap\/bootstrap\/js\/bootstrap.js":1,"sites\/all\/modules\/om_maximenu\/js\/om_maximenu.js":1,"sites\/all\/modules\/panels\/js\/panels.js":1,"sites\/all\/modules\/om_maximenu\/contrib\/jquery.hoverIntent.minified.js":1,"1":1,"sites\/all\/modules\/google_analytics\/googleanalytics.js":1,"2":1,"sites\/all\/themes\/sfmta\/js\/jquery.flexslider.js":1,"sites\/all\/themes\/sfmta\/js\/utils.js":1,"sites\/all\/themes\/sfmta\/js\/respond.min.js":1,"sites\/all\/themes\/sfmta\/js\/modernizr-latest.js":1,"sites\/all\/themes\/sfmta\/js\/jquery.hoverIntent.minified.js":1},"css":{"modules\/system\/system.base.css":1,"sites\/all\/modules\/date\/date_api\/date.css":1,"sites\/all\/modules\/date\/date_popup\/themes\/datepicker.1.7.css":1,"sites\/all\/modules\/date\/date_repeat_field\/date_repeat_field.css":1,"modules\/field\/theme\/field.css":1,"sites\/all\/modules\/om_maximenu\/css\/om_maximenu.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"sites\/all\/modules\/om_maximenu\/skin\/no_style\/no_style.css":1,"sites\/all\/themes\/bootstrap\/bootstrap\/css\/bootstrap.css":1,"sites\/all\/themes\/bootstrap\/bootstrap\/css\/bootstrap-responsive.css":1,"sites\/all\/themes\/sfmta\/css\/style.css":1,"sites\/all\/themes\/sfmta\/css\/flexslider.css":1,"sites\/all\/themes\/sfmta\/css\/temp.css":1}},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"}});</script>
+
+  <!-- HTML5 element support for IE6-8 -->
+<!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+<header id="brand" role="banner">
+<div class="container">
+
+<div class="branding">
+<div id="logo"><a href="http://www.sfmta.com/">
+
+<!-- SFMTA <small>Municipal Transportation Agency</small> -->
+<img src="/pbw/include/sanfrancisco/images/logo-sfmta_0.png"
+	alt="logo of the SFMTA" style="width: 160px; max-width=100%; height: auto !important;">
+</a></div>
+<div class="tagline"></div>
+</div>
+</div>
+</header>
+
+<div class="container"><header role="banner" id="page-header">
+
+<!--
+<div class="region region-header"><section
+	id="block-easy-breadcrumb-easy-breadcrumb"
+	class="block block-easy-breadcrumb"> <div class="easy-breadcrumb"><span class="easy-breadcrumb_segment-wrapper"><a href="http://www.sfmta.com/" class="easy-breadcrumb_segment easy-breadcrumb_segment-front">Home</a></span><span class="easy-breadcrumb_segment-separator"> / </span><span class="easy-breadcrumb_segment-wrapper"><a href="http://www.sfmta.com/getting-around" class="easy-breadcrumb_segment easy-breadcrumb_segment-1">Getting Around</a></span><span class="easy-breadcrumb_segment-separator"> / </span><span class="easy-breadcrumb_segment-wrapper"><a href="http://www.sfmta.com/getting-around/parking" class="easy-breadcrumb_segment easy-breadcrumb_segment-2">Parking</a></span><span class="easy-breadcrumb_segment-separator"> / </span><span class="easy-breadcrumb_segment-wrapper"></span></div>
+</section></div>-->
+
+</header> <!-- /#header -->
+
+
+	<h1 class="page-header">Citation Details</h1>
+
+
+
+<form name="selectForm" method="POST" action="/pbw/selectAction.doh" onsubmit="return preventDoubleClick()">
+						<input type="hidden" name="clientcode" value="19">
+						<input type="hidden" name="requestType" value="Submit">
+						<input type="hidden" name="surcharge" value="0.00">
+						<input type="hidden" name="locale" value="en">
+						<input type="hidden" name="ticketInfo" value="yes">
+						<input type="hidden" name="select" value="these">
+						<input type="hidden" name="payTheseItems" value="878391430">
+						<input type="hidden" name="paymentMethod" value="card">
+</form>
+
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td style="vertical-align: bottom">
+
+					<div class="ticket">
+
+
+						<h3>About the citation:</h3>
+						<!-- Dynamic Ticket List -->
+						<table width="100%" border="0" cellpadding="2" cellspacing="2">
+							<!-- Column Header Rows -->
+							<tr>
+								<th>Citation Number</th>
+								<th>Issue Date</th>
+								<th>Due Date</th>
+								<th>Amount Due</th>
+							</tr>
+							<!-- End Column Header Rows -->
+
+							<!-- Begin Dynamic Portion -->
+							<tr>
+								<td>
+
+
+
+
+									  	  	878391430
+
+
+
+
+
+								</td>
+								<td>02/13/2017</td>
+								<td>
+
+
+										03/30/2017
+
+
+								</td>
+
+								<td>$0.00</td>
+
+							</tr>
+						</table>
+						<br>
+						<h3>About the violation:</h3>
+						<table width="100%" border="0" cellpadding="2" cellspacing="2">
+							<!-- Column Header Rows -->
+							<tr>
+								<th>Violation Code</th>
+								<th>Description</th>
+								<th>Photos</th>
+							</tr>
+							<!-- End Column Header Rows -->
+
+							<!-- Begin Dynamic Portion -->
+							<tr>
+								<td>TRC7.2.22</td>
+								<td>STREET CLEANING</td>
+								<td>
+
+
+
+
+
+
+
+
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<p>
+						<br>
+					</p>
+
+					<table width="100%" border="0" cellpadding="2" cellspacing="2">
+						<tr>
+							<td style="vertical-align: top">
+								<div class="contest">
+									<table width="100%" border="0" cellpadding="2" cellspacing="2">
+										<tr>
+											<th>Information</th>
+										</tr>
+										<!-- data -->
+										<tr>
+											<td>
+
+
+											Citation Review Period has Expired<br>
+											<a href="https://www.sfmta.com/services/permits-citations/contest-citation" target="_blank">Protest Information</a>
+
+
+
+
+											<br><br>
+
+											</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+
+							<td style="vertical-align: top">
+								<div class="fee">
+									<table width="100%" border="0" cellpadding="2" cellspacing="2">
+										<tr>
+											<th>Fee Schedule</th>
+											<th id="amount">Amount</th>
+											<th>Date Applied</th>
+										</tr>
+										<tr>
+											<td>Fine</td>
+											<td id="amount">$71.00</td>
+											<td>02/13/2017</td>
+										</tr>
+										<tr>
+											<td>Penalty 1:</td>
+											<td id="amount">$31.00</td>
+											<td>03/30/2017</td>
+										</tr>
+										<tr>
+											<td>Penalty 2:</td>
+											<td id="amount">$42.00</td>
+											<td>05/06/2017</td>
+										</tr>
+										<tr>
+											<td>Special Collections Fee:</td>
+											<td id="amount">$0.00</td>
+											<td></td>
+										</tr>
+
+
+										<tr>
+											<td>Paid:</td>
+											<td id="amount">$144.00</td>
+											<td>06/22/2017</td>
+										</tr>
+										<tr>
+											<td id="totalDue">Total Due:</td>
+
+											<td id="totalDueAmount">$0.00</td>
+
+											<td id="totalDue"></td>
+										</tr>
+									</table>
+
+								</div>
+								</td>
+								</tr>
+
+					</table></td>
+				<td style="vertical-align: top">
+				<br>
+				<br>
+				<br>
+
+
+					<span style="width: 6em; float: right"></span>
+
+				</td>
+			</tr>
+		</table>
+
+
+		<form name="inputDetailForm" method="POST" action="/pbw/ticketDetailAction.doh" onsubmit="return preventDoubleClick()">
+						<input type="hidden" name="clientcode" value="19">
+						<input type="hidden" name="requestType" value="Submit">
+						<input type="hidden" name="locale" value="en">
+						<input type="hidden" name="ticketNumber" value="878391430">
+		<table width="100%" border="0" cellspacing="0" cellpadding="2">
+			<tr>
+				<td>
+
+					<input type="submit" name="back" value="Back" onclick="document.inputDetailForm.requestType.value='back'" class="action">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<input type="submit" name="cancel" value="Cancel" onclick="document.inputDetailForm.requestType.value='cancel'" class="action">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+				</td>
+			</tr>
+		</table>
+
+		</form>
+
+	<br><br>
+	<div class="footer2"><section>
+
+</section>
+
+</div>
+<script async type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=11&cb=718827931"></script>
+</body>
+</html>
