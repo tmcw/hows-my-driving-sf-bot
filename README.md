@@ -11,6 +11,6 @@ and web interface on top of it.
 
 ## The bad
 
-- etimspayments uses [Incapsula](https://www.imperva.com/) a fancy application security platform.
+- etimspayments uses [Incapsula](https://www.imperva.com/), a fancy application security platform.
   When it identifies this thing as a bot, it is very hard to get around.
 - I'm stalled on actually implementing a bot until Twitter approves a developer account.
