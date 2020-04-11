@@ -10,6 +10,10 @@ import pickle
 import cv2
 import requests
 import re
+import json
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from urllib.parse import parse_qs
+from datetime import datetime
 
 def resize_to_fit(image, width, height):
     (h, w) = image.shape[:2]
@@ -67,68 +71,79 @@ def get_fine(s, details_payload):
         if tds[0].text == 'Fine':
             return tds[1].text
 
-s = requests.Session()
-s.headers.update({
-    'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:74.0) Gecko/20100101 Firefox/74.0',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'Referer': 'https://wmq.etimspayments.com/pbw/inputAction.doh'
-
-})
-r = s.get('https://wmq.etimspayments.com/pbw/include/sanfrancisco/input.jsp')
-c = s.get('https://wmq.etimspayments.com/pbw/CaptchaServlet.doh', stream=True)
-
-solution = solve_captcha(np.asarray(bytearray(c.raw.read()), dtype=np.uint8))
-tree = html.fromstring(r.content)
-inputs = tree.xpath('//input')
-payload = {}
-
-for input in inputs:
-    if input.get('size') == '10':
-        payload[input.get('name')] = solution
-    else:
-        payload[input.get('name')] = input.get('value')
-
-payload['plateNumber'] = '5BWH824'
-payload['statePlate'] = 'CA'
-
-results = s.post('https://wmq.etimspayments.com/pbw/inputAction.doh', data=payload)
-
-tree = html.fromstring(results.content)
-tables = tree.xpath('//table')
-records = []
-for row in tables[1].xpath('tr')[1:]:
-    tds = row.xpath('td')
-    rec = {
-        'num' : tds[1].xpath('a')[0].text.strip(),
-        'issue_date' : tds[2].text,
-        'violation_code' : tds[3].text,
-        'violation' : tds[4].text,
-        'due' : tds[5].text
+def get_records(plateNumber):
+    s = requests.Session()
+    s.headers.update({
+        'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:74.0) Gecko/20100101 Firefox/74.0',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Referer': 'https://wmq.etimspayments.com/pbw/inputAction.doh',
+        'upgrade-insecure-requests': '1'
+    })
+    r = s.get('https://wmq.etimspayments.com/pbw/include/sanfrancisco/input.jsp')
+    c = s.get('https://wmq.etimspayments.com/pbw/CaptchaServlet.doh', stream=True)
+    # print(c)
+    solution = solve_captcha(np.asarray(bytearray(c.raw.read()), dtype=np.uint8))
+    tree = html.fromstring(r.content)
+    inputs = tree.xpath('//input')
+    payload = {}
+    for input in inputs:
+        if input.get('size') == '10':
+            payload[input.get('name')] = solution
+        else:
+            payload[input.get('name')] = input.get('value')
+    payload['plateNumber'] = plateNumber
+    payload['statePlate'] = 'CA'
+    # print(r.text)
+    # print(payload)
+    results = s.post('https://wmq.etimspayments.com/pbw/inputAction.doh', data=payload)
+    tree = html.fromstring(results.text)
+    tables = tree.xpath('//table')
+    records = []
+    for row in tables[1].xpath('tr')[1:]:
+        tds = row.xpath('td')
+        rec = {
+            'num' : tds[1].xpath('a')[0].text.strip(),
+            'issue_date' : tds[2].text,
+            'violation_code' : tds[3].text,
+            'violation' : tds[4].text,
+            'due' : tds[5].text
+        }
+        rec['fine'] = get_fine(s, {
+            'ticketNumber': rec['num'],
+            'clientcode': '19',
+            'locale': 'en',
+            'requestType': 'submit'
+        })
+        records.append(rec)
+    total_fine = sum(map(lambda r: float(re.sub(r'[^\d.]', '', r['fine'])), records))
+    total_due = sum(map(lambda r: float(re.sub(r'[^\d.]', '', r['due'])), records))
+    groups = []
+    for k, g in groupby(records, lambda r: r['violation']):
+        groups.append({
+            'type': k,
+            'count': len(list(g))
+        })
+    groups = sorted(groups, key=lambda g: g['count'], reverse=True)
+    return {
+        'total_fine': total_fine,
+        'total_due': total_due,
+        'groups': groups,
+        'records': records
     }
-    rec['fine'] = get_fine(s, {
-        'ticketNumber': rec['num'],
-        'clientcode': '19',
-        'locale': 'en',
-        'requestType': 'submit'
-    })
-    records.append(rec)
 
-total_fine = sum(map(lambda r: Decimal(re.sub(r'[^\d.]', '', r['fine'])), records))
-total_due = sum(map(lambda r: Decimal(re.sub(r'[^\d.]', '', r['due'])), records))
 
-groups = []
 
-for k, g in groupby(records, lambda r: r['violation']):
-    groups.append({
-        'type': k,
-        'count': len(list(g))
-    })
+class handler(BaseHTTPRequestHandler):
+  def do_GET(self):
+    self.send_response(200)
+    self.send_header('Content-type', 'application/json')
+    self.end_headers()
+    plateNumber = parse_qs(self.path[2:])['plateNumber'][0]
+    self.wfile.write(bytes(json.dumps(get_records(plateNumber)), 'utf8')i
+    return
 
-groups = sorted(groups, key=lambda g: g['count'], reverse=True)
+# print(get_records('5BWH824'))
 
-print('total fines:', total_fine)
-print('total due:', total_due)
-print('groups:', groups)
 
-print(records)
+httpd = HTTPServer(('', 8003), handler)
+httpd.serve_forever()
