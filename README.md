@@ -4,6 +4,12 @@ This is a layer on top of the model developed in [howsmy](https://github.com/tmc
 mainly by [oliverproud](https://github.com/oliverproud/). It takes that model, adds a scraper
 and web interface on top of it.
 
+## Setup
+
+- Install requirements from `requirements.txt`
+- Run `python test.py`
+- Look up a plate, like http://localhost:8003/?plateNumber=5BWH824
+
 ## The good
 
 - CAPTCHAs are solveable and now, solved. With 98% accuracy. Very much thanks to Oliver.

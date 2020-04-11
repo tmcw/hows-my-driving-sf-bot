@@ -139,11 +139,8 @@ class handler(BaseHTTPRequestHandler):
     self.send_header('Content-type', 'application/json')
     self.end_headers()
     plateNumber = parse_qs(self.path[2:])['plateNumber'][0]
-    self.wfile.write(bytes(json.dumps(get_records(plateNumber)), 'utf8')i
+    self.wfile.write(bytes(json.dumps(get_records(plateNumber)), 'utf8'))
     return
-
-# print(get_records('5BWH824'))
-
 
 httpd = HTTPServer(('', 8003), handler)
 httpd.serve_forever()
